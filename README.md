@@ -13,7 +13,7 @@ Se planea en una actualización posterior incluir soporte para Firefox y Chromiu
 Este módulo está disponible en [PyPI](https://pypi.org/project/pypares2/). Para instalarlo, se debe ejecutar el siguiente comando:
 
 ```bash
-pip install pypares2
+pip install paress2
 ```
 
 ## Uso
@@ -56,7 +56,4 @@ Las contribuciones son bienvenidas. Para solicitar cambios, por favor, cree un i
 
 ## Patrocinio
 
-Este proyecto ha sido elaborado de manera independiente por el autor. Si desea apoyar el desarrollo de este y otros proyectos, puede considerar patrocinarme a través de GitHub Sponsors:
-
-<iframe src="https://github.com/sponsors/jairomelo/button" title="Sponsor jairomelo" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
-
+Este proyecto ha sido elaborado de manera independiente por el autor. Si desea apoyar el desarrollo de este y otros proyectos, puede considerar patrocinarme a través de [GitHub Sponsors](https://github.com/sponsors/jairomelo)
