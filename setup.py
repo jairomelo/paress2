@@ -13,7 +13,7 @@ AUTHOR = 'Jairo Antonio Melo'
 AUTHOR_EMAIL = 'jairoantoniomelo@gmail.com'
 URL = 'jairomelo.com'
 
-LICENSE = 'MIT License'
+LICENSE = 'GNU General Public License v3.0'
 DESCRIPTION = 'Paquete para la descarga automatizada de documentos desde el Portal de Archivos Españoles'
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
@@ -32,14 +32,18 @@ setup(
     author=AUTHOR,
     license=LICENSE,
     author_email=AUTHOR_EMAIL,
+    requires=["Python (>=3.7)"],
     url=URL,
     packages=find_packages(),
     install_requires=INSTALL_REQUIRES,
     include_package_data=True,
     keywords=['python', 'paress', 'paress2', 'pares2.0'],
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ]
 )
