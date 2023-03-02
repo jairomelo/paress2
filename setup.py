@@ -11,7 +11,7 @@ VERSION = '0.1.0'
 PACKAGE_NAME = 'paress2'
 AUTHOR = 'Jairo Antonio Melo'
 AUTHOR_EMAIL = 'jairoantoniomelo@gmail.com'
-URL = 'jairomelo.com'
+URL = 'https://github.com/jairomelo/paress2'
 
 LICENSE = 'GNU General Public License v3.0'
 DESCRIPTION = 'Paquete para la descarga automatizada de documentos desde el Portal de Archivos Españoles'
