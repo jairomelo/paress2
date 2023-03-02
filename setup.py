@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 HERE = pathlib.Path(__file__).parent
 
 # El texto de la descripción se obtiene del archivo README.md
-VERSION = '0.1.0'
+VERSION = '0.1.01'
 PACKAGE_NAME = 'paress2'
 AUTHOR = 'Jairo Antonio Melo'
 AUTHOR_EMAIL = 'jairoantoniomelo@gmail.com'
@@ -15,7 +15,7 @@ URL = 'https://github.com/jairomelo/paress2'
 
 LICENSE = 'GNU General Public License v3.0'
 DESCRIPTION = 'Paquete para la descarga automatizada de documentos desde el Portal de Archivos Españoles'
-LONG_DESCRIPTION = (HERE / "README.md").read_text()
+LONG_DESCRIPTION = (HERE / "README.md").read_text(encoding='utf-8')
 LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
