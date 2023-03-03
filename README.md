@@ -52,7 +52,17 @@ A menos que esté en modo headless, se abrirá una ventana de Google Chrome y se
 
 ## Contribuciones
 
-Las contribuciones son bienvenidas. Para solicitar cambios, por favor, cree un issue en el repositorio de GitHub.
+Las contribuciones son bienvenidas. Para solicitar cambios o reportar errores, por favor, cree un [issue](https://github.com/jairomelo/paress2/issues/new) en el repositorio de GitHub. Para reportar errores por favor compartir el número de catálogo del legajo y el mensaje de error que se muestra en la consola.
+
+Si desea contribuir con el código, por favor, cree un pull request y se revisará o aceptará lo antes posible.
+
+## TODO
+
+- [ ] Añadir un registro del legajo descargado para identificar el documento.
+- [ ] Incluir soporte para Firefox y Chromium
+- [ ] Incluir opción para descargar el archivo como PDF
+- [ ] Construir una interfaz gráfica para facilitar su uso
+- [ ] Añadir la opción de descargar metadatos y conjuntos de búsquedas (por ejemplo, para descargar una lista de mapas)
 
 ## Patrocinio
 
