@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 HERE = pathlib.Path(__file__).parent
 
 # El texto de la descripción se obtiene del archivo README.md
-VERSION = '0.1.01'
+VERSION = '0.1.3'
 PACKAGE_NAME = 'paress2'
 AUTHOR = 'Jairo Antonio Melo'
 AUTHOR_EMAIL = 'jairoantoniomelo@gmail.com'
@@ -19,8 +19,8 @@ LONG_DESCRIPTION = (HERE / "README.md").read_text(encoding='utf-8')
 LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
-    'selenium~=3.141.0',
-    'webdriver-manager~=3.4.2'
+    'selenium>=4.8.2, <5.0.0',
+    'webdriver-manager>=3.8.5, <4.0.0'
 ]
 
 setup(
