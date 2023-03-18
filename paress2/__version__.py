@@ -1,0 +1,7 @@
+__title__ = 'paress2'
+__description__ = 'Paress2 is a Python package for downloading images from the Pares2 website.'
+__version__ = '0.1.5'
+__author__ = 'Jairo Antonio Melo'
+__author_email__ = 'jairoantoniomelo@gmail.com'
+__license__ = 'GNU General Public License v3.0'
+__url__ = 'https://github.com/jairomelo/paress2'
