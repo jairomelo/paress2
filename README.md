@@ -1,3 +1,9 @@
+[![PyPI](https://img.shields.io/pypi/v/paress2)](https://pypi.org/project/paress2/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/paress2)](https://pypi.org/project/paress2/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/paress2)](https://pypi.org/project/paress2/)
+[![GitHub](https://img.shields.io/github/license/jairomelo/paress2)](https://github.com/jairomelo/paress2/blob/main/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/jairomelo/paress2)]()
+
 # PARESS2 :: Descargador automatizado de archivos del Portal de Archivos Españoles PARES2.0
 
 Esta librería permite realizar descargas automatizadas de archivos del Portal de Archivos Españoles PARES2.0. Debido a que el portal no cuenta con una API, se ha desarrollado esta librería para realizar un Web Scrapping de la página web del portal.
