@@ -1,43 +1,40 @@
 # Configuración del módulo
 
 import pathlib
+import os
 from setuptools import setup, find_packages
 
 # Obtener la ruta del directorio actual
 HERE = pathlib.Path(__file__).parent
 
-# El texto de la descripción se obtiene del archivo README.md
-VERSION = '0.1.01'
-PACKAGE_NAME = 'paress2'
-AUTHOR = 'Jairo Antonio Melo'
-AUTHOR_EMAIL = 'jairoantoniomelo@gmail.com'
-URL = 'https://github.com/jairomelo/paress2'
+about = {}
 
-LICENSE = 'GNU General Public License v3.0'
-DESCRIPTION = 'Paquete para la descarga automatizada de documentos desde el Portal de Archivos Españoles'
+with open(os.path.join(HERE, 'paress2', "__version__.py"), encoding='utf-8') as f:
+    exec(f.read(), about)
+
 LONG_DESCRIPTION = (HERE / "README.md").read_text(encoding='utf-8')
 LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
-    'selenium~=3.141.0',
-    'webdriver-manager~=3.4.2'
+    'selenium>=4.8.2, <5.0.0',
+    'webdriver-manager>=3.8.5, <4.0.0'
 ]
 
 setup(
-    name=PACKAGE_NAME,
-    version=VERSION,
-    description=DESCRIPTION,
+    name=about['__title__'],
+    version=about['__version__'],
+    description=about['__description__'],
     long_description=LONG_DESCRIPTION,
     long_description_content_type=LONG_DESC_TYPE,
-    author=AUTHOR,
-    license=LICENSE,
-    author_email=AUTHOR_EMAIL,
+    author=about['__author__'],
+    license=about['__license__'],
+    author_email=about['__author_email__'],
     requires=["Python (>=3.7)"],
-    url=URL,
+    url=about['__url__'],
     packages=find_packages(),
     install_requires=INSTALL_REQUIRES,
     include_package_data=True,
-    keywords=['python', 'paress', 'paress2', 'pares2.0'],
+    keywords=['python', 'paress', 'paress2', 'pares2.0', 'archivos históricos', 'historical files', 'historical documents', 'historical images', 'historical photos', 'historical pictures'],
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",

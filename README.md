@@ -2,6 +2,14 @@
 
 Esta librería permite realizar descargas automatizadas de archivos del Portal de Archivos Españoles PARES2.0. Debido a que el portal no cuenta con una API, se ha desarrollado esta librería para realizar un Web Scrapping de la página web del portal.
 
+<hr>
+
+🆕 Una interfaz gráfica βeta para este módulo está disponible en [GUI-archivos-hispanoamericanos](https://github.com/jairomelo/GUI-archivos-hispanoamericanos/releases/tag/v0.1.0-beta). Por lo pronto solamente está disponible para Windows 10 y 11.
+
+Descargar app para Windows: [![Download](https://img.shields.io/badge/Download-0.1.0--beta-blue)](https://github.com/jairomelo/GUI-archivos-hispanoamericanos/releases/download/v0.1.0-beta/main.exe)
+
+<hr>
+
 ## Requisitos
 
 Este programa ha sido probado y configurado para funcionar con Google Chrome a través de la librería [webdriver-manager](https://pypi.org/project/webdriver-manager/). Para su correcto funcionamiento es necesario tener instalado Google Chrome en el equipo. En caso de no tenerlo instalado, se puede descargar desde [aquí](https://www.google.com/intl/es/chrome/).
@@ -52,7 +60,17 @@ A menos que esté en modo headless, se abrirá una ventana de Google Chrome y se
 
 ## Contribuciones
 
-Las contribuciones son bienvenidas. Para solicitar cambios, por favor, cree un issue en el repositorio de GitHub.
+Las contribuciones son bienvenidas. Para solicitar cambios o reportar errores, por favor, cree un [issue](https://github.com/jairomelo/paress2/issues/new) en el repositorio de GitHub. Para reportar errores por favor compartir el número de catálogo del legajo y el mensaje de error que se muestra en la consola.
+
+Si desea contribuir con el código, por favor, cree un pull request y se revisará o aceptará lo antes posible.
+
+## TODO
+
+- [ ] Añadir un registro del legajo descargado para identificar el documento.
+- [ ] Incluir soporte para Firefox y Chromium
+- [ ] Incluir opción para descargar el archivo como PDF
+- [ ] Construir una interfaz gráfica para facilitar su uso
+- [ ] Añadir la opción de descargar metadatos y conjuntos de búsquedas (por ejemplo, para descargar una lista de mapas)
 
 ## Patrocinio
 

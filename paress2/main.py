@@ -16,6 +16,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from urllib.parse import urlparse, parse_qs
 
 from webdriver_manager.chrome import ChromeDriverManager
 import os
@@ -24,7 +25,7 @@ import time
 
 class Paress:
 
-    def __init__(self, url, destino=None, headless=False, velocidad=10):
+    def __init__(self, url: str, destino=None, headless=False, velocidad=10):
         """
         Parámetros:
         url: str
@@ -91,17 +92,29 @@ class Paress:
 
     def get_elemento_descarga(self):
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, '//*[@id="saveImageLink"]/img')) and
+            EC.visibility_of_element_located((By.XPATH, '//*[@id="saveImageLink"]')) and
             EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="saveImageLink"]/img'))
+                (By.XPATH, '//*[@id="saveImageLink"]'))
         )
-        return self.driver.find_element(By.XPATH, '//*[@id="saveImageLink"]/img')
+
+        elemento_descarga = self.driver.find_element(By.XPATH, '//*[@id="saveImageLink"]')
+
+        nombre_elemento = elemento_descarga.get_attribute("href")
+
+        # get dbCode from href 
+        parsed_url = urlparse(nombre_elemento)
+        querydict = parse_qs(parsed_url.query)
+        try:
+            dbCode = querydict["dbCode"][0]
+        except KeyError:
+            dbCode = None
+
+        return elemento_descarga, dbCode
 
     def descargar_imagenes(self):
         # Mensaje de inicio
         os.makedirs(self.directorio_destino, exist_ok=True)
-        print(
-            f"Preparando la descarga de imágenes en el directorio: {self.directorio_destino}")
+        print(f"Preparando la descarga de imágenes en el directorio: {self.directorio_destino}")
 
         # obtener número desde esta etiqueta <label id="lblVerImgs" for="chkVerImgs" class="nm" title="Ver Imágenes">308 imgs</label>
         WebDriverWait(self.driver, 10).until(
@@ -117,33 +130,45 @@ class Paress:
 
             WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.CSS_SELECTOR, "#viewer > img")) and
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, "#viewer > img"))
+                EC.presence_of_element_located((By.CSS_SELECTOR, "#viewer > img"))
             )
 
             WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, '//*[@id="saveImageLink"]/img')) and
-                EC.presence_of_element_located(
-                    (By.XPATH, '//*[@id="saveImageLink"]/img'))
+                EC.presence_of_element_located((By.XPATH, '//*[@id="saveImageLink"]/img'))
             )
 
-            # obtener el elemento de descarga
-            elemento_descarga = self.get_elemento_descarga()
-            # click en el elemento de descarga
-            elemento_descarga.click()
+            # obtener el nombre del archivo
+            elemento_descarga, nombre_archivo = self.get_elemento_descarga()
+            try:
+                nombre_archivo = nombre_archivo + ".jpg"
+            except TypeError:
+                nombre_archivo = "imagensindbCode.jpg"
+            ruta_archivo = os.path.join(self.directorio_destino, nombre_archivo)
+
+            # verificar si el archivo ya existe
+            if os.path.exists(ruta_archivo):
+                print(f"El archivo {ruta_archivo} ya existe, omitiendo descarga...")
+            else:
+                WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, '//*[@id="saveImageLink"]/img'))
+                )
+
+                # click en el elemento de descarga
+                elemento_descarga.click()
 
             # click en la siguiente imagen y esperar a que desaparezca la clase iviewer_loading
-            self.driver.find_element(
-                By.XPATH, '//*[@id="botonMasPeq-2"]').click()
+            self.driver.find_element(By.XPATH, '//*[@id="botonMasPeq-2"]')\
+                .click()
             WebDriverWait(self.driver, 10).until(
-                EC.invisibility_of_element_located(
-                    (By.CSS_SELECTOR, ".iviewer_loading"))
+                EC.invisibility_of_element_located((By.CSS_SELECTOR, ".iviewer_loading"))
             )
 
             print(f"Descargada la imagen {i+1} de {num_imgs}...", end="\r")
 
             # pausar para evitar que el servidor se sobrecargue
             time.sleep(self.velocidad)
+
 
         print(f"""
               REPORTE
@@ -152,6 +177,8 @@ class Paress:
                 Número de imágenes: {num_imgs}
                 Tamaño total: {round(sum(os.path.getsize(os.path.join(self.directorio_destino, f)) for f in os.listdir(self.directorio_destino)) / 1024 / 1024, 2)} MB
         """)
+
+        self.close()
 
     def close(self):
         self.driver.close()
