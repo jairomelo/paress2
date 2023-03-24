@@ -16,6 +16,8 @@ Descargar app para Windows: [![Download](https://img.shields.io/badge/Download-0
 
 <hr>
 
+Esta librería se encuentra en activo desarrollo, por lo que es posible que algún error ya haya sido resuelto en la versión más reciente. Antes de ejecutar el script, se recomienda actualizar la librería a la última versión disponible.
+
 ## Requisitos
 
 Este programa ha sido probado y configurado para funcionar con Google Chrome a través de la librería [webdriver-manager](https://pypi.org/project/webdriver-manager/). Para su correcto funcionamiento es necesario tener instalado Google Chrome en el equipo. En caso de no tenerlo instalado, se puede descargar desde [aquí](https://www.google.com/intl/es/chrome/).

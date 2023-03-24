@@ -8,7 +8,7 @@
 #                                                                                                          #
 # Repositorio en GitHub: https://github.com/jairomelo/paress2                                              #
 #                                                                                                          #
-# Licencia: GNU GPLv3                                                                                   #
+# Licencia: GNU GPLv3                                                                                      #
 ############################################################################################################
 
 from selenium import webdriver
@@ -21,6 +21,8 @@ from urllib.parse import urlparse, parse_qs
 from .browser_checker import is_browser_installed
 import os
 import time
+
+## Selecciona el servicio de acuerdo con el navegador instalado
 
 detectar_navegador = is_browser_installed("chrome")
 
@@ -80,9 +82,15 @@ class Paress:
 
         self.driver = self.iniciar_driver()
 
+
     def iniciar_driver(self):
-        """
-        # inicializar el driver como un servicio
+        """inicializar el driver como un servicio
+
+        Devuelve:
+        ---------
+        driver: selenium.webdriver.chrome.webdriver.WebDriver o selenium.webdriver.firefox.webdriver.WebDriver
+            Objeto WebDriver para controlar el navegador
+
         """
         if self.navegador == "chrome":
             service = Service(ChromeDriverManager().install())
@@ -143,7 +151,10 @@ class Paress:
 
             return driver
 
-    def get_elemento_descarga(self):
+
+    def get_elemento_descarga(self) -> tuple:
+        """ Obtener el elemento de descarga de la imagen
+        """
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, '//*[@id="saveImageLink"]')) and
             EC.presence_of_element_located(
@@ -165,7 +176,10 @@ class Paress:
 
         return elemento_descarga, dbCode
 
-    def descargar_imagenes(self):
+
+    def descargar_imagenes(self) -> None:
+        """ Descargar imágenes de un legajo
+        """
         # Mensaje de inicio
         os.makedirs(self.directorio_destino, exist_ok=True)
         print(
@@ -246,7 +260,10 @@ class Paress:
 
         self.close()
 
-    def close(self):
+
+    def close(self) -> None:
+        """ Cerrar el navegador
+        """
         self.driver.close()
 
 
