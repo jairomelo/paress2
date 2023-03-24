@@ -12,15 +12,28 @@
 ############################################################################################################
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+import selenium.common.exceptions as se
 from urllib.parse import urlparse, parse_qs
 
-from webdriver_manager.chrome import ChromeDriverManager
+from .browser_checker import is_browser_installed
 import os
 import time
+
+detectar_navegador = is_browser_installed("chrome")
+
+if detectar_navegador:
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+    navegador = "chrome"
+elif is_browser_installed("firefox"):
+    from selenium.webdriver.firefox.service import Service
+    from webdriver_manager.firefox import GeckoDriverManager
+    navegador = "firefox"
+else:
+    raise Exception("Ningún navegador compatible instalado")
 
 
 class Paress:
@@ -52,21 +65,7 @@ class Paress:
         self.headless = headless
         self.velocidad = velocidad
 
-        # inicializar el driver como un servicio
-        service = Service(ChromeDriverManager().install())
-
-        # opciones para evitar que se muestre advertencia USB
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
-
-        # no abrir una ventana nueva
-        if headless:
-            print("Cargando en modo headless...")
-            options.add_argument("--headless")
-
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        self.navegador = navegador
 
         directorio_legajo = self.url.split("/")[-1].split("?")[0]
 
@@ -79,16 +78,70 @@ class Paress:
             self.directorio_destino = os.path.join(
                 os.getcwd(), directorio_legajo)
 
-        options.add_experimental_option("prefs", {
-            "download.default_directory": self.directorio_destino,
-            "download.prompt_for_download": False,
-            "download.directory_upgrade": True
-        })
+        self.driver = self.iniciar_driver()
 
-        # inicializar el driver
-        self.driver = webdriver.Chrome(service=service, options=options)
-        self.driver.get(self.url)
-        self.driver.implicitly_wait(self.velocidad)
+    def iniciar_driver(self):
+        """
+        # inicializar el driver como un servicio
+        """
+        if self.navegador == "chrome":
+            service = Service(ChromeDriverManager().install())
+
+            # opciones para evitar que se muestre advertencia USB
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option(
+                'excludeSwitches', ['enable-logging'])
+
+            # no abrir una ventana nueva
+            if self.headless:
+                print("Cargando en modo headless...")
+                options.add_argument("--headless")
+
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_experimental_option(
+                'excludeSwitches', ['enable-logging'])
+
+            options.add_experimental_option("prefs", {
+                "download.default_directory": self.directorio_destino,
+                "download.prompt_for_download": False,
+                "download.directory_upgrade": True
+            })
+
+            # inicializar el driver
+            driver = webdriver.Chrome(service=service, options=options)
+            driver.get(self.url)
+            driver.implicitly_wait(self.velocidad)
+
+            return driver
+
+        elif self.navegador == "firefox":
+            service = Service(GeckoDriverManager().install())
+
+            # opciones para evitar que se muestre advertencia USB
+            options = webdriver.FirefoxOptions()
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+
+            # no abrir una ventana nueva
+            if self.headless:
+                print("Cargando en modo headless...")
+                options.add_argument("--headless")
+
+            options.set_preference("browser.download.folderList", 2)
+            options.set_preference(
+                "browser.download.manager.showWhenStarting", False)
+            options.set_preference(
+                "browser.download.dir", self.directorio_destino)
+            options.set_preference(
+                "browser.helperApps.neverAsk.saveToDisk", "application/octet-stream")
+
+            # inicializar el driver
+            driver = webdriver.Firefox(service=service, options=options)
+            driver.get(self.url)
+            driver.implicitly_wait(self.velocidad)
+
+            return driver
 
     def get_elemento_descarga(self):
         WebDriverWait(self.driver, 10).until(
@@ -97,11 +150,12 @@ class Paress:
                 (By.XPATH, '//*[@id="saveImageLink"]'))
         )
 
-        elemento_descarga = self.driver.find_element(By.XPATH, '//*[@id="saveImageLink"]')
+        elemento_descarga = self.driver.find_element(
+            By.XPATH, '//*[@id="saveImageLink"]')
 
         nombre_elemento = elemento_descarga.get_attribute("href")
 
-        # get dbCode from href 
+        # get dbCode from href
         parsed_url = urlparse(nombre_elemento)
         querydict = parse_qs(parsed_url.query)
         try:
@@ -114,7 +168,8 @@ class Paress:
     def descargar_imagenes(self):
         # Mensaje de inicio
         os.makedirs(self.directorio_destino, exist_ok=True)
-        print(f"Preparando la descarga de imágenes en el directorio: {self.directorio_destino}")
+        print(
+            f"Preparando la descarga de imágenes en el directorio: {self.directorio_destino}")
 
         # obtener número desde esta etiqueta <label id="lblVerImgs" for="chkVerImgs" class="nm" title="Ver Imágenes">308 imgs</label>
         WebDriverWait(self.driver, 10).until(
@@ -130,12 +185,14 @@ class Paress:
 
             WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.CSS_SELECTOR, "#viewer > img")) and
-                EC.presence_of_element_located((By.CSS_SELECTOR, "#viewer > img"))
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "#viewer > img"))
             )
 
             WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, '//*[@id="saveImageLink"]/img')) and
-                EC.presence_of_element_located((By.XPATH, '//*[@id="saveImageLink"]/img'))
+                EC.presence_of_element_located(
+                    (By.XPATH, '//*[@id="saveImageLink"]/img'))
             )
 
             # obtener el nombre del archivo
@@ -144,15 +201,22 @@ class Paress:
                 nombre_archivo = nombre_archivo + ".jpg"
             except TypeError:
                 nombre_archivo = "imagensindbCode.jpg"
-            ruta_archivo = os.path.join(self.directorio_destino, nombre_archivo)
+            ruta_archivo = os.path.join(
+                self.directorio_destino, nombre_archivo)
 
             # verificar si el archivo ya existe
             if os.path.exists(ruta_archivo):
-                print(f"El archivo {ruta_archivo} ya existe, omitiendo descarga...")
+                print(
+                    f"El archivo {ruta_archivo} ya existe, omitiendo descarga...")
             else:
                 WebDriverWait(self.driver, 10).until(
-                    EC.element_to_be_clickable((By.XPATH, '//*[@id="saveImageLink"]/img'))
+                    EC.element_to_be_clickable(
+                        (By.XPATH, '//*[@id="saveImageLink"]/img'))
                 )
+
+                # desplazarse al botón de descarga
+                self.driver.execute_script(
+                    "arguments[0].scrollIntoView();", elemento_descarga)
 
                 # click en el elemento de descarga
                 elemento_descarga.click()
@@ -160,15 +224,17 @@ class Paress:
             # click en la siguiente imagen y esperar a que desaparezca la clase iviewer_loading
             self.driver.find_element(By.XPATH, '//*[@id="botonMasPeq-2"]')\
                 .click()
-            WebDriverWait(self.driver, 10).until(
-                EC.invisibility_of_element_located((By.CSS_SELECTOR, ".iviewer_loading"))
-            )
-
-            print(f"Descargada la imagen {i+1} de {num_imgs}...", end="\r")
+            try:
+                WebDriverWait(self.driver, 10).until(
+                    EC.invisibility_of_element_located(
+                        (By.CSS_SELECTOR, ".iviewer_loading"))
+                )
+                print(f"Descargada la imagen {i+1} de {num_imgs}...", end="\r")
+            except se.TimeoutException:
+                print("TimeoutException: No se pudo cargar la siguiente imagen")
 
             # pausar para evitar que el servidor se sobrecargue
             time.sleep(self.velocidad)
-
 
         print(f"""
               REPORTE

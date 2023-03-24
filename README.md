@@ -73,10 +73,14 @@ Si desea contribuir con el código, por favor, cree un pull request y se revisar
 ## TODO
 
 - [ ] Añadir un registro del legajo descargado para identificar el documento.
-- [ ] Incluir soporte para Firefox y Chromium
+- [X] Incluir soporte para Firefox
 - [ ] Incluir opción para descargar el archivo como PDF
-- [ ] Construir una interfaz gráfica para facilitar su uso
+- [X] Construir una interfaz gráfica para facilitar su uso (parcial)
 - [ ] Añadir la opción de descargar metadatos y conjuntos de búsquedas (por ejemplo, para descargar una lista de mapas)
+
+## Control de cambios
+
+El registro de cambios se encuentra en el archivo [CHANGELOG.md](CHANGELOG.md)
 
 ## Patrocinio
 
