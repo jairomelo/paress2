@@ -12,7 +12,7 @@ Esta librería permite realizar descargas automatizadas de archivos del Portal d
 
 🆕 Una interfaz gráfica βeta para este módulo está disponible en [GUI-archivos-hispanoamericanos](https://github.com/jairomelo/GUI-archivos-hispanoamericanos/releases/tag/v0.1.0-beta). Por lo pronto solamente está disponible para Windows 10 y 11.
 
-Descargar app para Windows: [![Download](https://img.shields.io/badge/Download-0.1.0--beta-blue)](https://github.com/jairomelo/GUI-archivos-hispanoamericanos/releases/download/v0.1.0-beta/main.exe)
+Descargar app para Windows: [![Download](https://img.shields.io/badge/Download-0.1.0--beta-blue)](https://github.com/jairomelo/GUI-archivos-hispanoamericanos/releases/download/v0.1.0-beta/gui_archivos.exe)
 
 <hr>
 
