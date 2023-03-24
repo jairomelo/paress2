@@ -16,6 +16,8 @@ Descargar app para Windows: [![Download](https://img.shields.io/badge/Download-0
 
 <hr>
 
+Esta librería se encuentra en activo desarrollo, por lo que es posible que algún error ya haya sido resuelto en la versión más reciente. Antes de ejecutar el script, se recomienda actualizar la librería a la última versión disponible.
+
 ## Requisitos
 
 Este programa ha sido probado y configurado para funcionar con Google Chrome a través de la librería [webdriver-manager](https://pypi.org/project/webdriver-manager/). Para su correcto funcionamiento es necesario tener instalado Google Chrome en el equipo. En caso de no tenerlo instalado, se puede descargar desde [aquí](https://www.google.com/intl/es/chrome/).
@@ -73,10 +75,14 @@ Si desea contribuir con el código, por favor, cree un pull request y se revisar
 ## TODO
 
 - [ ] Añadir un registro del legajo descargado para identificar el documento.
-- [ ] Incluir soporte para Firefox y Chromium
+- [X] Incluir soporte para Firefox
 - [ ] Incluir opción para descargar el archivo como PDF
-- [ ] Construir una interfaz gráfica para facilitar su uso
+- [X] Construir una interfaz gráfica para facilitar su uso (parcial)
 - [ ] Añadir la opción de descargar metadatos y conjuntos de búsquedas (por ejemplo, para descargar una lista de mapas)
+
+## Control de cambios
+
+El registro de cambios se encuentra en el archivo [CHANGELOG.md](CHANGELOG.md)
 
 ## Patrocinio
 
