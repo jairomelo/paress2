@@ -226,8 +226,8 @@ class Paress:
                 .click()
             try:
                 WebDriverWait(self.driver, 10).until(
-                    EC.invisibility_of_element_located(
-                        (By.CSS_SELECTOR, ".iviewer_loading"))
+                    EC.invisibility_of_element_located((By.CSS_SELECTOR, ".iviewer_loading")) and
+                    EC.invisibility_of_element_located((By.CSS_SELECTOR, ".loader"))
                 )
                 print(f"Descargada la imagen {i+1} de {num_imgs}...", end="\r")
             except se.TimeoutException:
