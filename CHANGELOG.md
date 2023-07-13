@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.7] - 2023-07-13
+
+### Fixed
+
+- Corregido el error `raise Exception("Ningún navegador compatible instalado")` cuando no se encuentra ningún navegador compatible generado por una ruta a Chrome declarada en el módulo `browser_checker`.
+
 ## [0.1.6] - 2023-03-23
 
 ### Added

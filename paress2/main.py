@@ -24,13 +24,15 @@ import time
 
 ## Selecciona el servicio de acuerdo con el navegador instalado
 
-detectar_navegador = is_browser_installed("chrome")
+""" detectar_navegador = is_browser_installed("chrome")
 
 if detectar_navegador:
     from selenium.webdriver.chrome.service import Service
     from webdriver_manager.chrome import ChromeDriverManager
     navegador = "chrome"
-elif is_browser_installed("firefox"):
+elif """ 
+
+if is_browser_installed("firefox"):
     from selenium.webdriver.firefox.service import Service
     from webdriver_manager.firefox import GeckoDriverManager
     navegador = "firefox"
