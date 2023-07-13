@@ -62,6 +62,10 @@ Paress("http://pares.mcu.es/ParesBusquedas20/catalogo/show/7255960?nm", destino=
 
 A menos que esté en modo headless, se abrirá una ventana de Google Chrome y se iniciará la descarga de las imágenes. El proceso puede tardar varios minutos, dependiendo de la velocidad de conexión a Internet y de la cantidad de imágenes que tenga el legajo.
 
+## Bugs
+
+Si encuentra algún error, por favor, cree un [issue](https://github.com/jairomelo/paress2/issues/new?title=Error&body=descripci%C3%B3n+del+error) en el repositorio de GitHub. Para facilitar la identificación del error incluya el mensaje de error completo que se muestra en la consola, así como el sistema operativo, el navegador instalado (Chrome o Firefox) y la versión de Python que está usando. También puede compartir el número de catálogo del legajo que está intentando descargar.
+
 ## Licencia
 
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)
